@@ -1,0 +1,98 @@
+// Copyright (C) 2020 GlobalLogic
+// cms hal sevice
+
+cc_binary {
+    proprietary: true,
+    defaults: ["hidl_defaults", "cms-libs"],
+    relative_install_path: "hw",
+    name: "vendor.renesas.graphics.cms@1.0-service.renesas",
+    init_rc: ["vendor.renesas.graphics.cms@1.0-service.renesas.rc"],
+    vintf_fragments: ["vendor.renesas.graphics.cms@1.0-service.renesas.xml"],
+
+    srcs: [
+        "service.cpp",
+        "Cms.cpp"
+    ],
+
+    cflags: [
+        "-Wall",
+        "-Werror",
+    ],
+
+    shared_libs: [
+        "liblog",
+        "libbase",
+        "libdl",
+        "libutils",
+        "libhardware",
+        "libhidlbase",
+        "libhidltransport",
+        "vendor.renesas.graphics.cms@1.0",
+        "vendor.renesas.graphics.composer@2.0",
+    ],
+}
+
+cc_defaults {
+    name: "cms-libs",
+    shared_libs: [
+        "vendor.renesas.graphics.cms@1.0",
+        "libcmsbcm",
+        "libcmsdgc",
+        "libcmsblc",
+        "liblog",
+        "libutils",
+        "libhardware",
+        "libhidlbase",
+        "libhidltransport",
+    ],
+}
+
+// prebuilt libcmsbcm
+cc_prebuilt_library_shared {
+    name: "libcmsbcm",
+    srcs: ["libcmsbcm/libcmsbcm.so"],
+    export_include_dirs: [
+        "libcmsbcm"
+    ],
+    compile_multilib: "64",
+
+    proprietary: true,
+
+    strip: {
+        none:true,
+    }
+}
+
+// ------------------------------------------------------------------------------
+// prebuilt libcmsdgc
+cc_prebuilt_library_shared {
+    name: "libcmsdgc",
+    srcs: ["libcmsdgc/libcmsdgc.so"],
+    export_include_dirs: [
+        "libcmsdgc"
+    ],
+    compile_multilib: "64",
+
+    proprietary: true,
+
+    strip: {
+        none:true,
+    }
+}
+
+// ------------------------------------------------------------------------------
+// prebuilt libcmsblc
+cc_prebuilt_library_shared {
+    name: "libcmsblc",
+    srcs: ["libcmsblc/libcmsblc.so"],
+    export_include_dirs: [
+        "libcmsblc"
+    ],
+    compile_multilib: "64",
+
+    proprietary: true,
+
+    strip: {
+        none:true,
+    }
+}
